@@ -74,7 +74,6 @@ void *microbench_busywait_thread_fn(void *arg) {
     resp->tstart = t;
     
     // execute trials until TRIAL_MS has elapsed
-    // (check only once every 256 lock acquisitions for efficiency)
     int done = 0;
     while ((clock()-t) < resp->seconds*CLOCKS_PER_SEC) {
 
