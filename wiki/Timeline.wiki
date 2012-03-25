@@ -1,8 +1,9 @@
 #summary This is the project timeline, including all major milestones.
 
 Mar. 24
-  * some locks and initial micro benchmarks implemented (C++ completed, Java not completed)
-  * lock-based version of KST and synthetic benchmarks implemented (not completed)
+  * some locks and initial micro benchmarks implemented *(C++ completed, Java not completed)*
+  * lock-based version of KST and synthetic benchmarks implemented *(not completed)*
+    REVISED: edit AVL tree of Bronson et~al. instead of making a lock-based version of KST
 Mar. 30
   * most locks and micro benchmarks implemented
 Apr. 2
