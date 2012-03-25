@@ -12,11 +12,11 @@ class lock3 : public abstractlock {
 private:
     volatile bool *slots;
     OPA_int_t next_slot;
-    int nprocs;
+    const int nprocs;
     
-    int my_place; // temporary var
+    int my_place; // temporary var (for lock holder)
 public:
-    lock3(int _nprocs) {
+    lock3(const int _nprocs) {
         assert(_nprocs > 0);
         nprocs = _nprocs;
         slots = new volatile bool[nprocs*SLOT_STEP];
@@ -30,13 +30,16 @@ public:
         delete[] slots;
     }
     virtual void acquire(void) {
-        my_place = OPA_fetch_and_incr_int(&next_slot);
-        if ((my_place % nprocs) == 0) {
+        int _my_place = OPA_fetch_and_incr_int(&next_slot);
+        if ((_my_place % nprocs) == 0) {
             OPA_add_int(&next_slot, -nprocs);
         }
-        my_place %= nprocs;
-        while (slots[my_place] /* == MUST_WAIT */);
-        slots[my_place] = MUST_WAIT;
+        _my_place %= nprocs;
+        while (slots[_my_place] == MUST_WAIT);
+        slots[_my_place] = MUST_WAIT;
+        
+        // now that we've obtained the lock, we can use var. my_place safely
+        my_place = _my_place;
     }
     virtual void release(void) {
         // precondition: the calling process must hold the lock
