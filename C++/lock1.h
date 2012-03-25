@@ -11,7 +11,7 @@ public:
     virtual void acquire(void) {
         int delay = 1;
         while (OPA_cas_int(&lock, 0, 1)) {
-            sleep(delay);
+            sleep_fn(delay);
             delay <<= 1;
         }
     }

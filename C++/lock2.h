@@ -14,7 +14,7 @@ public:
     virtual void acquire(void) {
         uint my_ticket = OPA_fetch_and_incr_int(&next_ticket);
         for (;;) {
-            sleep(my_ticket - now_serving);
+            sleep_fn(my_ticket - now_serving);
             if (now_serving == my_ticket) return;
         }
     }
