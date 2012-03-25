@@ -12,7 +12,7 @@ public:
         now_serving = 0;
     }
     virtual void acquire(void) {
-        uint my_ticket = OPA_fetch_and_incr_int(&next_ticket);
+        const uint my_ticket = OPA_fetch_and_incr_int(&next_ticket);
         for (;;) {
             sleep_fn(my_ticket - now_serving);
             if (now_serving == my_ticket) return;

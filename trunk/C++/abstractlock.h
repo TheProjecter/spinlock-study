@@ -12,9 +12,9 @@ class abstractlock {
 public:
     abstractlock() {
     }
-    void acquire(void) {
+    virtual void acquire(void) {
     }
-    void release(void) {
+    virtual void release(void) {
         // precondition: the calling process must hold the lock
     }
 };
