@@ -1,7 +1,5 @@
 #summary This is the project timeline, including all major milestones.
 
-= Introduction =
-
 Mar. 24
   * some locks and initial micro benchmarks implemented
   * lock-based version of KST and synthetic benchmarks implemented
