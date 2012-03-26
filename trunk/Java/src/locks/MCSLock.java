@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicReference;
  *
  * @author mikle
  */
-public class MCSLock implements AbstractLock
+public final class MCSLock implements AbstractLock
 {
     /* Shared tail of MCS Queue  */
     AtomicReference<QNode> tail;
@@ -41,7 +41,7 @@ public class MCSLock implements AbstractLock
      * The second is the QNode that follows it.
      * 
      */
-    class QNode
+    final class QNode
     {
         // Indexes into the padded QNode
         private static final int IS_LOCKED = 0;
@@ -67,23 +67,23 @@ public class MCSLock implements AbstractLock
         /*
          * @return returns true if the QNode is locked, false otherwise.
          */
-        public final boolean getIsLocked()
+        public boolean getIsLocked()
         {
             // null <--> unlocked ; !null <--> locked
             return paddedQNode[IS_LOCKED] != null;
         }
         
-        public final void setIsLocked(boolean locked)
+        public void setIsLocked(boolean locked)
         {
             // null <--> unlocked ; !null <--> locked
             paddedQNode[IS_LOCKED] = locked ? this : null;
         }
         
-        public final QNode getBehind() {
+        public QNode getBehind() {
             return paddedQNode[BEHIND];
         }        
         
-        public final void setBehind(QNode qNode) {
+        public void setBehind(QNode qNode) {
             paddedQNode[BEHIND] = qNode;
         }
     }  
@@ -101,7 +101,7 @@ public class MCSLock implements AbstractLock
     }
     
     @Override
-    public final void acquire()
+    public void acquire()
     {
         QNode qNode = _localNode.get();        
         
@@ -127,7 +127,7 @@ public class MCSLock implements AbstractLock
     }
     
     @Override
-    public final void release()
+    public void release()
     {
         QNode qNode = _localNode.get();
         
