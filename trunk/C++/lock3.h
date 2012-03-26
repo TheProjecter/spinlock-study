@@ -12,7 +12,7 @@ class lock3 : public abstractlock {
 private:
     volatile bool *slots;
     OPA_int_t next_slot;
-    const int nprocs;
+    int nprocs;
     
     int my_place; // temporary var (for lock holder)
 public:
