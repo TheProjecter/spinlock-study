@@ -67,23 +67,23 @@ public class MCSLock implements AbstractLock
         /*
          * @return returns true if the QNode is locked, false otherwise.
          */
-        public boolean getIsLocked()
+        public final boolean getIsLocked()
         {
             // null <--> unlocked ; !null <--> locked
             return paddedQNode[IS_LOCKED] != null;
         }
         
-        public void setIsLocked(boolean locked)
+        public final void setIsLocked(boolean locked)
         {
             // null <--> unlocked ; !null <--> locked
             paddedQNode[IS_LOCKED] = locked ? this : null;
         }
         
-        public QNode getBehind() {
+        public final QNode getBehind() {
             return paddedQNode[BEHIND];
         }        
         
-        public void setBehind(QNode qNode) {
+        public final void setBehind(QNode qNode) {
             paddedQNode[BEHIND] = qNode;
         }
     }  
@@ -101,7 +101,7 @@ public class MCSLock implements AbstractLock
     }
     
     @Override
-    public void acquire()
+    public final void acquire()
     {
         QNode qNode = _localNode.get();        
         
@@ -127,7 +127,7 @@ public class MCSLock implements AbstractLock
     }
     
     @Override
-    public void release()
+    public final void release()
     {
         QNode qNode = _localNode.get();
         
@@ -148,5 +148,5 @@ public class MCSLock implements AbstractLock
         // now we can pass the lock to him
         qNode.getBehind().setIsLocked(false);
         qNode.setBehind(null);
-    }
+    }  
 }
