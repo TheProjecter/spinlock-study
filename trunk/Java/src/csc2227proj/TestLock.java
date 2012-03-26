@@ -29,13 +29,14 @@ public class TestLock {
     }
     
     public static void main(String[] args) throws Exception {
-        AbstractLock[] locks = {new Lock1(), new Lock2(), new Lock3(1)};
+        AbstractLock[] locks = {new Lock1(), new Lock2(), new Lock3(1), new MCSLock()};
         for (AbstractLock lock : locks) {
             System.out.println("testing " + lock.getClass().getSimpleName());
             TestLock test = new TestLock(lock);
             test.testAcquireRelease();
         }
         
-        (new TestLock(locks[2])).testDeadlock();
+        //(new TestLock(locks[2])).testDeadlock();
+        //(new TestLock(locks[3])).testDeadlock();
     }
 }
